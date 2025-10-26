@@ -1,6 +1,6 @@
 "use client"
 
-import { Network, Wallet, Languages, Moon, Sun } from "lucide-react"
+import { Network, Wallet, Languages, Moon, Sun, Linkedin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -42,6 +42,18 @@ export function Header({
             <div>
               <h1 className="text-2xl font-bold text-foreground">Blockchain Data Share</h1>
               <p className="text-sm text-muted-foreground">Simulador de Compartilhamento Descentralizado</p>
+              <div className="flex items-center gap-1.5 mt-1">
+                <span className="text-xs text-muted-foreground">By Robson Campos</span>
+                <a
+                  href="https://www.linkedin.com/in/robson-campos-467a1329/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center text-primary hover:text-primary/80 transition-colors"
+                  aria-label="LinkedIn Profile"
+                >
+                  <Linkedin className="h-3.5 w-3.5" />
+                </a>
+              </div>
             </div>
           </div>
 

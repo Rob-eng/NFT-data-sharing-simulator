@@ -13,6 +13,7 @@ import { CreateEntityDialog } from "@/components/create-entity-dialog"
 import { ConnectWalletDialog } from "@/components/connect-wallet-dialog"
 import { TransferNFTDialog } from "@/components/transfer-nft-dialog"
 import { GenerateOwnerDialog } from "@/components/generate-owner-dialog"
+import { WelcomeDialog } from "@/components/welcome-dialog"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Plus, Hexagon, UserPlus } from "lucide-react"
@@ -339,6 +340,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background">
+      <WelcomeDialog language={language} />
       <Header
         connectedWallet={connectedWallet}
         onConnectWallet={() => setShowConnectWallet(true)}
