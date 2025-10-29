@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Data Sharing Contract - Erro EVM Resolvido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .step {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            border-radius: 5px;
+        }
+        .code {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 5px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .fix {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .screenshot {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            padding: 20px;
+            text-align: center;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Erro EVM Resolvido - NFT Data Sharing Contract</h1>
+        
+        <div class="error">
+            <strong>🚨 ERRO IDENTIFICADO:</strong> "Incompatible EVM for the selected chain" - Este é um erro comum de compatibilidade de versão EVM no Remix IDE.
+        </div>
+
+        <div class="fix">
+            <strong>✅ SOLUÇÃO SIMPLES:</strong> Vou te mostrar exatamente como resolver isso em 3 passos!
+        </div>
+
+        <div class="step">
+            <h3>🔧 Passo 1: Clique em "OK" no Popup</h3>
+            <p>Quando aparecer o erro:</p>
+            <div class="screenshot">
+                📱 <strong>Popup do Remix:</strong><br>
+                "Incompatible EVM for the selected chain"<br>
+                <br>
+                ✅ Clique em <strong>"OK"</strong> (não em Cancel)
+            </div>
+            <p>O Remix vai automaticamente ajustar a versão EVM para ser compatível.</p>
+        </div>
+
+        <div class="step">
+            <h3>🔧 Passo 2: Recompile o Contrato</h3>
+            <p>Após clicar em "OK":</p>
+            <ol>
+                <li>Vá para a aba "Solidity Compiler" (ícone de engrenagem)</li>
+                <li>Clique em "Compile NFTDataSharingMinimal.sol" novamente</li>
+                <li>Aguarde a compilação (deve aparecer ✅ verde)</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>🔧 Passo 3: Configure a Versão EVM Manualmente (Se Necessário)</h3>
+            <p>Se ainda houver problemas:</p>
+            <ol>
+                <li>Na aba "Solidity Compiler"</li>
+                <li>Clique em "Advanced Configurations"</li>
+                <li>Selecione EVM Version: <code>default</code> ou <code>istanbul</code></li>
+                <li>Clique em "Compile" novamente</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>🚀 Passo 4: Faça o Deploy</h3>
+            <p>Agora que está compilado corretamente:</p>
+            <ol>
+                <li>Vá para "Deploy & Run Transactions"</li>
+                <li>Selecione "Injected Provider - MetaMask"</li>
+                <li>Clique em "Deploy"</li>
+                <li>Confirme na MetaMask</li>
+            </ol>
+        </div>
+
+        <div class="success">
+            <strong>🎉 Pronto!</strong> O erro EVM foi resolvido e seu contrato deve compilar e fazer deploy sem problemas!
+        </div>
+
+        <div class="step">
+            <h3>🔍 Por que isso acontece?</h3>
+            <p>Este erro ocorre porque:</p>
+            <ul>
+                <li>🔸 <strong>Diferentes redes</strong> usam versões EVM diferentes</li>
+                <li>🔸 <strong>MetaMask</strong> pode estar conectado a uma rede específica</li>
+                <li>🔸 <strong>Remix</strong> detecta a incompatibilidade automaticamente</li>
+                <li>🔸 <strong>Solução automática</strong> resolve na maioria dos casos</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>🛠️ Configurações Recomendadas</h3>
+            <p>Para evitar problemas futuros:</p>
+            
+            <h4>Solidity Compiler:</h4>
+            <div class="code">
+Compiler Version: 0.8.20
+EVM Version: default (ou istanbul)
+Optimization: Enabled (200 runs)
+            </div>
+            
+            <h4>Deploy & Run:</h4>
+            <div class="code">
+Environment: Injected Provider - MetaMask
+Account: Sua conta MetaMask
+Gas Limit: Auto
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>🧪 Teste Após o Deploy</h3>
+            <p>Após o deploy bem-sucedido, teste estas funções:</p>
+            
+            <h4>1. Criar uma NFT:</h4>
+            <div class="code">
+createNFT("João Silva", "Candidato para desenvolvedor")
+            </div>
+            
+            <h4>2. Adicionar Dados:</h4>
+            <div class="code">
+addData(0, "João tem 30 anos e 5 anos de experiência")
+            </div>
+            
+            <h4>3. Ler Dados:</h4>
+            <div class="code">
+readData(0)
+            </div>
+            
+            <h4>4. Verificar se Token Existe:</h4>
+            <div class="code">
+tokenExists(0)
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>🆘 Se Ainda Houver Problemas</h3>
+            <p>Tente estas soluções alternativas:</p>
+            
+            <h4>Opção 1: Mudar Rede no MetaMask</h4>
+            <ul>
+                <li>Abra o MetaMask</li>
+                <li>Mude para "Ethereum Mainnet" ou "Sepolia Testnet"</li>
+                <li>Volte ao Remix e tente novamente</li>
+            </ul>
+            
+            <h4>Opção 2: Usar Versão Mais Antiga do Solidity</h4>
+            <ul>
+                <li>Mude para Solidity 0.8.19</li>
+                <li>Recompile o contrato</li>
+                <li>Tente fazer deploy</li>
+            </ul>
+            
+            <h4>Opção 3: Limpar Cache do Remix</h4>
+            <ul>
+                <li>Feche o Remix</li>
+                <li>Abra novamente</li>
+                <li>Tente compilar e fazer deploy</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <strong>💡 Dica:</strong> Este erro é muito comum e a solução automática do Remix funciona na maioria dos casos. Basta clicar em "OK" e recompilar!
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="https://remix.ethereum.org/" target="_blank" class="button">🚀 Voltar ao Remix IDE</a>
+        </div>
+    </div>
+</body>
+</html>

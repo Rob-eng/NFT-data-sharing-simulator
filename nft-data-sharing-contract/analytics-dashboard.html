@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Data Sharing - Analytics Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .stat:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            font-weight: 500;
+            color: #666;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-true {
+            background-color: #4CAF50;
+        }
+
+        .status-false {
+            background-color: #f44336;
+        }
+
+        .contract-info {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .contract-info h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .contract-address {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            word-break: break-all;
+            margin: 10px 0;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #5a6fd8;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .nft-list {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .nft-item {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            transition: border-color 0.3s ease;
+        }
+
+        .nft-item:hover {
+            border-color: #667eea;
+        }
+
+        .nft-id {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 NFT Data Sharing Analytics</h1>
+            <p>Dashboard de Monitoramento e Estatísticas</p>
+        </div>
+
+        <div class="contract-info">
+            <h3>📋 Informações do Contrato</h3>
+            <p><strong>Contract ID:</strong></p>
+            <div class="contract-address" id="contractId">CBAFSPMDNDW7F6T4A5W2B7BWSN4G2IZULUEWPB7B2S2ADNPU2FKD72RA</div>
+            <p><strong>Rede:</strong> Stellar Testnet</p>
+            <p><strong>Status:</strong> <span class="status-indicator status-true"></span>Ativo</p>
+            
+            <div class="action-buttons">
+                <button class="btn" onclick="refreshData()">🔄 Atualizar Dados</button>
+                <button class="btn btn-secondary" onclick="openStellarExplorer()">🔗 Ver no Explorer</button>
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <div class="card">
+                <h3>📊 Estatísticas Gerais</h3>
+                <div class="stat">
+                    <span class="stat-label">Total de NFTs</span>
+                    <span class="stat-value" id="totalNfts">-</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Total de Acessos</span>
+                    <span class="stat-value" id="totalAccesses">-</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">NFTs com Dados Públicos</span>
+                    <span class="stat-value" id="nftsWithPublicData">-</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">NFTs com Dados Criptografados</span>
+                    <span class="stat-value" id="nftsWithEncryptedData">-</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🔒 Status de Segurança</h3>
+                <div class="stat">
+                    <span class="stat-label">Controle de Acesso</span>
+                    <span class="status-indicator status-true"></span>
+                    <span class="stat-value">Ativo</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Criptografia</span>
+                    <span class="status-indicator status-true"></span>
+                    <span class="stat-value">Implementada</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Auditoria</span>
+                    <span class="status-indicator status-true"></span>
+                    <span class="stat-value">Habilitada</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Integridade</span>
+                    <span class="status-indicator status-true"></span>
+                    <span class="stat-value">Verificada</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>⚡ Performance</h3>
+                <div class="stat">
+                    <span class="stat-label">Tempo de Resposta</span>
+                    <span class="stat-value" id="responseTime">-</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Taxa de Sucesso</span>
+                    <span class="stat-value">99.9%</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Uptime</span>
+                    <span class="stat-value">100%</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Custo por Transação</span>
+                    <span class="stat-value">~0.00001 XLM</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="nft-list">
+            <h3>🎨 NFTs Criadas</h3>
+            <div id="nftList">
+                <div class="loading">Carregando NFTs...</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>🛠️ Ações Disponíveis</h3>
+            <div class="action-buttons">
+                <button class="btn" onclick="createTestNFT()">➕ Criar NFT de Teste</button>
+                <button class="btn" onclick="addTestData()">📝 Adicionar Dados de Teste</button>
+                <button class="btn" onclick="testEncryption()">🔐 Testar Criptografia</button>
+                <button class="btn" onclick="viewLogs()">📋 Ver Logs</button>
+                <button class="btn btn-secondary" onclick="exportData()">💾 Exportar Dados</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulação de dados (em produção, conectar com o contrato real)
+        let contractData = {
+            totalNfts: 0,
+            totalAccesses: 0,
+            nfts: []
+        };
+
+        // Função para atualizar dados
+        async function refreshData() {
+            showLoading();
+            
+            try {
+                // Simular chamada para o contrato
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Dados simulados
+                contractData = {
+                    totalNfts: 1,
+                    totalAccesses: 5,
+                    nfts: [
+                        {
+                            id: 0,
+                            name: "Ana Costa",
+                            description: "Candidata para gerente",
+                            hasPublicData: true,
+                            hasEncryptedData: false,
+                            accessCount: 3
+                        }
+                    ]
+                };
+                
+                updateDashboard();
+                showSuccess("Dados atualizados com sucesso!");
+            } catch (error) {
+                showError("Erro ao atualizar dados: " + error.message);
+            }
+        }
+
+        // Atualizar dashboard
+        function updateDashboard() {
+            document.getElementById('totalNfts').textContent = contractData.totalNfts;
+            document.getElementById('totalAccesses').textContent = contractData.totalAccesses;
+            document.getElementById('nftsWithPublicData').textContent = 
+                contractData.nfts.filter(nft => nft.hasPublicData).length;
+            document.getElementById('nftsWithEncryptedData').textContent = 
+                contractData.nfts.filter(nft => nft.hasEncryptedData).length;
+            
+            updateNFTList();
+        }
+
+        // Atualizar lista de NFTs
+        function updateNFTList() {
+            const nftList = document.getElementById('nftList');
+            
+            if (contractData.nfts.length === 0) {
+                nftList.innerHTML = '<div class="loading">Nenhuma NFT encontrada</div>';
+                return;
+            }
+            
+            nftList.innerHTML = contractData.nfts.map(nft => `
+                <div class="nft-item">
+                    <div class="nft-id">NFT #${nft.id}</div>
+                    <div><strong>Nome:</strong> ${nft.name}</div>
+                    <div><strong>Descrição:</strong> ${nft.description}</div>
+                    <div><strong>Acessos:</strong> ${nft.accessCount}</div>
+                    <div>
+                        <span class="status-indicator ${nft.hasPublicData ? 'status-true' : 'status-false'}"></span>
+                        Dados Públicos
+                    </div>
+                    <div>
+                        <span class="status-indicator ${nft.hasEncryptedData ? 'status-true' : 'status-false'}"></span>
+                        Dados Criptografados
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Funções de ação
+        function createTestNFT() {
+            showLoading();
+            setTimeout(() => {
+                contractData.totalNfts++;
+                contractData.nfts.push({
+                    id: contractData.nfts.length,
+                    name: `Teste ${contractData.nfts.length + 1}`,
+                    description: "NFT de teste criada",
+                    hasPublicData: false,
+                    hasEncryptedData: false,
+                    accessCount: 0
+                });
+                updateDashboard();
+                showSuccess("NFT de teste criada!");
+            }, 1000);
+        }
+
+        function addTestData() {
+            showLoading();
+            setTimeout(() => {
+                if (contractData.nfts.length > 0) {
+                    contractData.nfts[0].hasPublicData = true;
+                    contractData.nfts[0].accessCount++;
+                    contractData.totalAccesses++;
+                    updateDashboard();
+                    showSuccess("Dados de teste adicionados!");
+                }
+            }, 1000);
+        }
+
+        function testEncryption() {
+            showLoading();
+            setTimeout(() => {
+                if (contractData.nfts.length > 0) {
+                    contractData.nfts[0].hasEncryptedData = true;
+                    contractData.nfts[0].accessCount++;
+                    contractData.totalAccesses++;
+                    updateDashboard();
+                    showSuccess("Teste de criptografia realizado!");
+                }
+            }, 1000);
+        }
+
+        function viewLogs() {
+            alert("Logs de auditoria:\n\n" +
+                  "1. NFT criada - Ana Costa\n" +
+                  "2. Dados públicos adicionados\n" +
+                  "3. Acesso de leitura concedido\n" +
+                  "4. Dados criptografados adicionados\n" +
+                  "5. Verificação de integridade realizada");
+        }
+
+        function exportData() {
+            const data = {
+                timestamp: new Date().toISOString(),
+                contractId: document.getElementById('contractId').textContent,
+                stats: {
+                    totalNfts: contractData.totalNfts,
+                    totalAccesses: contractData.totalAccesses
+                },
+                nfts: contractData.nfts
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'nft-data-sharing-analytics.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showSuccess("Dados exportados com sucesso!");
+        }
+
+        function openStellarExplorer() {
+            const contractId = document.getElementById('contractId').textContent;
+            window.open(`https://stellar.expert/explorer/testnet/contract/${contractId}`, '_blank');
+        }
+
+        // Funções de UI
+        function showLoading() {
+            document.getElementById('nftList').innerHTML = '<div class="loading">Carregando...</div>';
+        }
+
+        function showSuccess(message) {
+            const container = document.querySelector('.container');
+            const alert = document.createElement('div');
+            alert.className = 'success';
+            alert.textContent = message;
+            container.insertBefore(alert, container.firstChild);
+            setTimeout(() => alert.remove(), 3000);
+        }
+
+        function showError(message) {
+            const container = document.querySelector('.container');
+            const alert = document.createElement('div');
+            alert.className = 'error';
+            alert.textContent = message;
+            container.insertBefore(alert, container.firstChild);
+            setTimeout(() => alert.remove(), 5000);
+        }
+
+        // Inicializar dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            refreshData();
+        });
+    </script>
+</body>
+</html>

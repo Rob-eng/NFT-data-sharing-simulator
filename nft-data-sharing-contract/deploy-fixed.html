@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Data Sharing Contract - Deploy Local (Versão Corrigida)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .step {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            border-radius: 5px;
+        }
+        .code {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 5px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .version {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            color: #004085;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .fix {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Deploy Local - NFT Data Sharing Contract</h1>
+        
+        <div class="fix">
+            <strong>🔧 PROBLEMA RESOLVIDO:</strong> O erro "require(_exists(tokenId), "NFT does not exist");" foi corrigido! Esta versão não usa dependências externas problemáticas.
+        </div>
+
+        <div class="version">
+            <strong>📋 Versão Mínima:</strong> Esta versão foi criada especificamente para resolver o erro da função _exists() e funciona sem dependências externas.
+        </div>
+
+        <div class="step">
+            <h3>📋 Passo 1: Preparação</h3>
+            <p>Antes de começar, você precisará de:</p>
+            <ul>
+                <li>✅ Navegador web (Chrome, Firefox, Safari)</li>
+                <li>✅ MetaMask instalado</li>
+                <li>✅ Conta Ethereum com ETH (para gas fees)</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>🌐 Passo 2: Acesse o Remix IDE</h3>
+            <p>Abra o Remix IDE no seu navegador:</p>
+            <a href="https://remix.ethereum.org/" target="_blank" class="button">Abrir Remix IDE</a>
+            <p>O Remix é uma IDE online para desenvolvimento de smart contracts.</p>
+        </div>
+
+        <div class="step">
+            <h3>📁 Passo 3: Crie o Arquivo do Contrato</h3>
+            <p>No Remix IDE:</p>
+            <ol>
+                <li>Vá para a aba "File Explorer" (ícone de pasta)</li>
+                <li>Clique com botão direito em "contracts"</li>
+                <li>Selecione "New File"</li>
+                <li>Digite o nome: <code>NFTDataSharingMinimal.sol</code></li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>📝 Passo 4: Cole o Código do Contrato (VERSÃO CORRIGIDA)</h3>
+            <p>Copie e cole o seguinte código no arquivo criado:</p>
+            <div class="code">
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+/**
+ * @title NFTDataSharingMinimal
+ * @dev Versão mínima sem dependências externas
+ */
+contract NFTDataSharingMinimal {
+    uint256 private _tokenIdCounter;
+    address public owner;
+    
+    struct CandidateData {
+        uint256 id;
+        string name;
+        string description;
+        string data;
+        uint256 createdAt;
+        address tokenOwner;
+    }
+    
+    mapping(uint256 => CandidateData) private _candidateData;
+    mapping(address => bool) private _hasReadAccess;
+    mapping(address => bool) private _hasWriteAccess;
+    mapping(uint256 => bool) private _tokenExists;
+    mapping(uint256 => address) private _tokenOwners;
+    
+    event NFTCreated(uint256 indexed tokenId, address indexed owner, string name);
+    event DataAdded(uint256 indexed tokenId, string data);
+    event ReadAccessGranted(address indexed system, uint256 indexed tokenId);
+    event WriteAccessGranted(address indexed system, uint256 indexed tokenId);
+    
+    constructor() {
+        owner = msg.sender;
+    }
+    
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only owner can call this function");
+        _;
+    }
+    
+    function createNFT(string memory name, string memory description) external returns (uint256) {
+        uint256 tokenId = _tokenIdCounter;
+        _tokenIdCounter++;
+        
+        _candidateData[tokenId] = CandidateData({
+            id: tokenId,
+            name: name,
+            description: description,
+            data: "",
+            createdAt: block.timestamp,
+            tokenOwner: msg.sender
+        });
+        
+        _tokenOwners[tokenId] = msg.sender;
+        _tokenExists[tokenId] = true;
+        
+        emit NFTCreated(tokenId, msg.sender, name);
+        return tokenId;
+    }
+    
+    function addData(uint256 tokenId, string memory data) external {
+        require(_tokenExists[tokenId], "NFT does not exist");
+        require(_tokenOwners[tokenId] == msg.sender || _hasWriteAccess[msg.sender], "No write access");
+        
+        _candidateData[tokenId].data = data;
+        
+        emit DataAdded(tokenId, data);
+    }
+    
+    function grantReadAccess(address system, uint256 tokenId) external {
+        require(_tokenExists[tokenId], "NFT does not exist");
+        require(_tokenOwners[tokenId] == msg.sender, "Only owner can grant access");
+        
+        _hasReadAccess[system] = true;
+        emit ReadAccessGranted(system, tokenId);
+    }
+    
+    function grantWriteAccess(address system, uint256 tokenId) external {
+        require(_tokenExists[tokenId], "NFT does not exist");
+        require(_tokenOwners[tokenId] == msg.sender, "Only owner can grant access");
+        
+        _hasWriteAccess[system] = true;
+        emit WriteAccessGranted(system, tokenId);
+    }
+    
+    function readData(uint256 tokenId) external view returns (string memory) {
+        require(_tokenExists[tokenId], "NFT does not exist");
+        
+        if (_tokenOwners[tokenId] == msg.sender || _hasReadAccess[msg.sender]) {
+            return _candidateData[tokenId].data;
+        } else {
+            return "No access";
+        }
+    }
+    
+    function getNFTInfo(uint256 tokenId) external view returns (
+        string memory name,
+        string memory description,
+        uint256 createdAt,
+        address tokenOwner
+    ) {
+        require(_tokenExists[tokenId], "NFT does not exist");
+        
+        CandidateData memory candidate = _candidateData[tokenId];
+        return (candidate.name, candidate.description, candidate.createdAt, candidate.tokenOwner);
+    }
+    
+    function getTotalNFTs() external view returns (uint256) {
+        return _tokenIdCounter;
+    }
+    
+    function hasReadAccess(address system) external view returns (bool) {
+        return _hasReadAccess[system];
+    }
+    
+    function hasWriteAccess(address system) external view returns (bool) {
+        return _hasWriteAccess[system];
+    }
+    
+    function tokenExists(uint256 tokenId) external view returns (bool) {
+        return _tokenExists[tokenId];
+    }
+    
+    function getTokenOwner(uint256 tokenId) external view returns (address) {
+        require(_tokenExists[tokenId], "NFT does not exist");
+        return _tokenOwners[tokenId];
+    }
+}
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>🔧 Passo 5: Instale as Dependências</h3>
+            <p>No Remix IDE:</p>
+            <ol>
+                <li>Vá para a aba "Solidity Compiler" (ícone de engrenagem)</li>
+                <li>Selecione a versão do compilador: <code>0.8.20</code></li>
+                <li>Clique em "Compile NFTDataSharingMinimal.sol"</li>
+                <li>Aguarde a compilação (deve aparecer um ✅ verde)</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>🚀 Passo 6: Configure o Deploy</h3>
+            <p>No Remix IDE:</p>
+            <ol>
+                <li>Vá para a aba "Deploy & Run Transactions" (ícone de foguete)</li>
+                <li>Selecione "Injected Provider - MetaMask" como ambiente</li>
+                <li>Certifique-se de que sua carteira MetaMask está conectada</li>
+                <li>Selecione sua conta</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>📤 Passo 7: Faça o Deploy</h3>
+            <p>No Remix IDE:</p>
+            <ol>
+                <li>Clique em "Deploy" ao lado do contrato NFTDataSharingMinimal</li>
+                <li>Confirme a transação na MetaMask</li>
+                <li>Aguarde a confirmação (pode levar alguns segundos)</li>
+                <li>Anote o endereço do contrato deployado</li>
+            </ol>
+        </div>
+
+        <div class="success">
+            <strong>🎉 Parabéns!</strong> Seu contrato foi deployado com sucesso! Agora você pode interagir com ele usando as funções disponíveis.
+        </div>
+
+        <div class="step">
+            <h3>🧪 Passo 8: Teste o Contrato (VERSÃO CORRIGIDA)</h3>
+            <p>Após o deploy, você verá as funções disponíveis. Teste estas funções:</p>
+            
+            <h4>1. Criar uma NFT:</h4>
+            <div class="code">
+createNFT("João Silva", "Candidato para desenvolvedor")
+            </div>
+            
+            <h4>2. Adicionar Dados:</h4>
+            <div class="code">
+addData(0, "João tem 30 anos e 5 anos de experiência em desenvolvimento")
+            </div>
+            
+            <h4>3. Ler Dados:</h4>
+            <div class="code">
+readData(0)
+            </div>
+            
+            <h4>4. Obter Informações da NFT:</h4>
+            <div class="code">
+getNFTInfo(0)
+            </div>
+            
+            <h4>5. Conceder Acesso:</h4>
+            <div class="code">
+grantReadAccess("0xEnderecoDoSistema", 0)
+            </div>
+            
+            <h4>6. Verificar se Token Existe:</h4>
+            <div class="code">
+tokenExists(0)
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>🔍 Principais Correções Feitas</h3>
+            <p>Esta versão resolve os problemas anteriores:</p>
+            <ul>
+                <li>✅ <strong>Sem dependências externas:</strong> Não usa OpenZeppelin</li>
+                <li>✅ <strong>Função _exists() removida:</strong> Usa mapeamento próprio</li>
+                <li>✅ <strong>Controle de propriedade:</strong> Implementação própria</li>
+                <li>✅ <strong>Validações funcionais:</strong> Todas as verificações funcionam</li>
+                <li>✅ <strong>Eventos completos:</strong> Todos os eventos são emitidos</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>📊 Passo 9: Verifique os Resultados</h3>
+            <p>Após executar as funções:</p>
+            <ul>
+                <li>✅ Verifique se os eventos foram emitidos</li>
+                <li>✅ Confirme se os dados foram armazenados</li>
+                <li>✅ Teste o controle de acesso</li>
+                <li>✅ Anote o endereço do contrato para uso futuro</li>
+                <li>✅ Teste a função tokenExists()</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>🔍 Próximos Passos</h3>
+            <p>Agora que seu contrato está funcionando:</p>
+            <ol>
+                <li><strong>Teste todas as funcionalidades</strong> disponíveis</li>
+                <li><strong>Crie uma interface web</strong> para interagir com o contrato</li>
+                <li><strong>Implemente testes automatizados</strong></li>
+                <li><strong>Considere fazer deploy</strong> em uma testnet (Sepolia)</li>
+                <li><strong>Evolua para versão mais complexa</strong> se necessário</li>
+            </ol>
+        </div>
+
+        <div class="warning">
+            <strong>💡 Dica:</strong> Esta versão mínima deve funcionar perfeitamente! Se ainda houver problemas:
+            <ul>
+                <li>Verifique se a versão do Solidity está correta (0.8.20)</li>
+                <li>Confirme que sua carteira tem ETH suficiente</li>
+                <li>Certifique-se de que a rede está funcionando</li>
+                <li>Use esta versão mínima primeiro</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="https://remix.ethereum.org/" target="_blank" class="button">🚀 Começar Deploy no Remix</a>
+        </div>
+    </div>
+</body>
+</html>

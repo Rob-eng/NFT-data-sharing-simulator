@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Data Sharing Contract - Erro Override Corrigido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .step {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            border-radius: 5px;
+        }
+        .code {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 5px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .fix {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Erro Override Corrigido - NFT Data Sharing Contract</h1>
+        
+        <div class="error">
+            <strong>🚨 ERRO RESOLVIDO:</strong> "TypeError: Function has override specified but does not override anything" - O problema estava na função _beforeTokenTransfer que foi substituída por _update na versão mais recente do OpenZeppelin.
+        </div>
+
+        <div class="fix">
+            <strong>✅ CORREÇÃO APLICADA:</strong> Substituí a função _beforeTokenTransfer por _update que é a função correta na versão atual do OpenZeppelin.
+        </div>
+
+        <div class="step">
+            <h3>📝 Passo 1: Use o Contrato Corrigido</h3>
+            <p>O arquivo <code>NFTDataSharing.sol</code> foi corrigido e agora está pronto para uso. A função problemática foi atualizada:</p>
+            
+            <h4>Antes (Problemático):</h4>
+            <div class="code">
+function _beforeTokenTransfer(
+    address from,
+    address to,
+    uint256 tokenId,
+    uint256 batchSize
+) internal override {
+    // Código problemático
+}
+            </div>
+            
+            <h4>Depois (Corrigido):</h4>
+            <div class="code">
+function _update(
+    address to,
+    uint256 tokenId,
+    address auth
+) internal override returns (address) {
+    address from = _ownerOf(tokenId);
+    address previousOwner = super._update(to, tokenId, auth);
+    
+    // Incrementar contador de compartilhamento de dados
+    if (to != address(0)) {
+        _dataSharingCount[tokenId]++;
+        emit DataShared(tokenId, to, !_systemAccess[to].hasReadAccess);
+    }
+    
+    return previousOwner;
+}
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>🔧 Passo 2: Compile o Contrato</h3>
+            <p>No Remix IDE:</p>
+            <ol>
+                <li>Abra o arquivo <code>NFTDataSharing.sol</code></li>
+                <li>Vá para "Solidity Compiler"</li>
+                <li>Selecione versão: <code>0.8.20</code></li>
+                <li>Clique em "Compile NFTDataSharing.sol"</li>
+                <li>Deve aparecer ✅ verde (sem erros)</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>🚀 Passo 3: Faça o Deploy</h3>
+            <p>No Remix IDE:</p>
+            <ol>
+                <li>Vá para "Deploy & Run Transactions"</li>
+                <li>Selecione "Injected Provider - MetaMask"</li>
+                <li>Clique em "Deploy" ao lado de NFTDataSharing</li>
+                <li>Confirme na MetaMask</li>
+                <li>Anote o endereço do contrato</li>
+            </ol>
+        </div>
+
+        <div class="success">
+            <strong>🎉 Pronto!</strong> O erro de override foi corrigido e o contrato deve compilar e fazer deploy sem problemas!
+        </div>
+
+        <div class="step">
+            <h3>🧪 Passo 4: Teste o Contrato</h3>
+            <p>Após o deploy, teste estas funções:</p>
+            
+            <h4>1. Criar uma NFT:</h4>
+            <div class="code">
+createNFT("João Silva", "Candidato para desenvolvedor")
+            </div>
+            
+            <h4>2. Adicionar Dados:</h4>
+            <div class="code">
+addData(0, "idade", "30")
+addData(0, "experiencia", "5 anos")
+            </div>
+            
+            <h4>3. Ler Dados:</h4>
+            <div class="code">
+readData(0, "idade")
+            </div>
+            
+            <h4>4. Transferir NFT (Testa a função _update):</h4>
+            <div class="code">
+transferNFT("0xNovoProprietario", 0)
+            </div>
+            
+            <h4>5. Verificar Contagem de Compartilhamento:</h4>
+            <div class="code">
+getDataSharingCount(0)
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>🔍 Por que isso aconteceu?</h3>
+            <p>Este erro ocorreu porque:</p>
+            <ul>
+                <li>🔸 <strong>OpenZeppelin v5:</strong> Mudou a função _beforeTokenTransfer para _update</li>
+                <li>🔸 <strong>Compatibilidade:</strong> A função antiga não existe mais</li>
+                <li>🔸 <strong>Solução:</strong> Usar a nova função _update com a assinatura correta</li>
+                <li>🔸 <strong>Funcionalidade:</strong> Mantém a mesma lógica de negócio</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>📊 Principais Mudanças na Função</h3>
+            <p>A função foi atualizada para:</p>
+            <ul>
+                <li>✅ <strong>Nova assinatura:</strong> _update(address to, uint256 tokenId, address auth)</li>
+                <li>✅ <strong>Retorno:</strong> Retorna o endereço do proprietário anterior</li>
+                <li>✅ <strong>Compatibilidade:</strong> Funciona com OpenZeppelin v5</li>
+                <li>✅ <strong>Funcionalidade:</strong> Mantém o contador de compartilhamento</li>
+                <li>✅ <strong>Eventos:</strong> Continua emitindo DataShared</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>📊 Verificação de Funcionamento</h3>
+            <p>Após executar as funções:</p>
+            <ul>
+                <li>✅ Verifique se os eventos foram emitidos</li>
+                <li>✅ Confirme se os dados foram armazenados</li>
+                <li>✅ Teste a transferência de NFT</li>
+                <li>✅ Verifique o contador de compartilhamento</li>
+                <li>✅ Confirme que a função _update está funcionando</li>
+                <li>✅ Anote o endereço do contrato</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="https://remix.ethereum.org/" target="_blank" class="button">🚀 Abrir Remix IDE</a>
+        </div>
+    </div>
+</body>
+</html>

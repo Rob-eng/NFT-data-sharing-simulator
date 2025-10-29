@@ -1,0 +1,35 @@
+{
+  "name": "nft-data-sharing-contract",
+  "version": "1.0.0",
+  "description": "Smart contract for NFT-based data sharing with granular access control",
+  "main": "index.js",
+  "scripts": {
+    "build": "forge build",
+    "test": "forge test",
+    "test:verbose": "forge test -vvv",
+    "coverage": "forge coverage",
+    "deploy:local": "forge script script/Deploy.s.sol --rpc-url http://localhost:8545 --broadcast",
+    "deploy:sepolia": "forge script script/Deploy.s.sol --rpc-url sepolia --broadcast --verify",
+    "deploy:mainnet": "forge script script/Deploy.s.sol --rpc-url mainnet --broadcast --verify",
+    "size": "forge build --sizes",
+    "gas-report": "forge test --gas-report",
+    "slither": "slither .",
+    "mythril": "myth analyze src/NFTDataSharing.sol"
+  },
+  "keywords": [
+    "solidity",
+    "ethereum",
+    "nft",
+    "data-sharing",
+    "access-control",
+    "stellar"
+  ],
+  "author": "NFT Data Sharing Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@openzeppelin/contracts": "^5.0.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0"
+  }
+}

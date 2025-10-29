@@ -1,0 +1,1 @@
+/Users/robsonc/Dropbox/R.\ SA/DeMap/Web3/NFT-data-sharing-simulator/nft-data-sharing-contract/target/wasm32-unknown-unknown/release/nft_data_sharing.wasm: /Users/robsonc/Dropbox/R.\ SA/DeMap/Web3/NFT-data-sharing-simulator/nft-data-sharing-contract/src/lib.rs

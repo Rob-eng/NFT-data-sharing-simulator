@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Data Sharing Contract - Contrato Principal Corrigido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .step {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            border-radius: 5px;
+        }
+        .code {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 5px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .fix {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Contrato Principal Corrigido - NFT Data Sharing</h1>
+        
+        <div class="error">
+            <strong>🚨 ERRO RESOLVIDO:</strong> "DeclarationError: Undeclared identifier. _exists" - O contrato principal NFTDataSharing.sol foi corrigido!
+        </div>
+
+        <div class="fix">
+            <strong>✅ CORREÇÕES APLICADAS:</strong> Todas as 15 ocorrências de _exists() foram substituídas por _tokenExists[tokenId] no contrato principal.
+        </div>
+
+        <div class="step">
+            <h3>📝 Passo 1: Use o Contrato Principal Corrigido</h3>
+            <p>O arquivo <code>NFTDataSharing.sol</code> foi corrigido e agora está pronto para uso. Este é o contrato completo com todas as funcionalidades:</p>
+            
+            <h4>Funcionalidades Disponíveis:</h4>
+            <ul>
+                <li>✅ Criar NFTs de candidatos</li>
+                <li>✅ Adicionar dados (chave-valor e JSON)</li>
+                <li>✅ Controle de acesso granular</li>
+                <li>✅ Conceder/revogar permissões</li>
+                <li>✅ Solicitar acesso</li>
+                <li>✅ Transferir NFTs</li>
+                <li>✅ Histórico de propriedade</li>
+                <li>✅ Dados criptografados</li>
+                <li>✅ Contagem de compartilhamento</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>🔧 Passo 2: Compile o Contrato Principal</h3>
+            <p>No Remix IDE:</p>
+            <ol>
+                <li>Abra o arquivo <code>NFTDataSharing.sol</code></li>
+                <li>Vá para "Solidity Compiler"</li>
+                <li>Selecione versão: <code>0.8.20</code></li>
+                <li>Clique em "Compile NFTDataSharing.sol"</li>
+                <li>Deve aparecer ✅ verde (sem erros)</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>🚀 Passo 3: Faça o Deploy</h3>
+            <p>No Remix IDE:</p>
+            <ol>
+                <li>Vá para "Deploy & Run Transactions"</li>
+                <li>Selecione "Injected Provider - MetaMask"</li>
+                <li>Clique em "Deploy" ao lado de NFTDataSharing</li>
+                <li>Confirme na MetaMask</li>
+                <li>Anote o endereço do contrato</li>
+            </ol>
+        </div>
+
+        <div class="success">
+            <strong>🎉 Pronto!</strong> O contrato principal foi corrigido e deve compilar e fazer deploy sem problemas!
+        </div>
+
+        <div class="step">
+            <h3>🧪 Passo 4: Teste o Contrato Completo</h3>
+            <p>Após o deploy, teste estas funções principais:</p>
+            
+            <h4>1. Criar uma NFT:</h4>
+            <div class="code">
+createNFT("João Silva", "Candidato para desenvolvedor")
+            </div>
+            
+            <h4>2. Adicionar Dados (Chave-Valor):</h4>
+            <div class="code">
+addData(0, "idade", "30")
+addData(0, "experiencia", "5 anos")
+            </div>
+            
+            <h4>3. Adicionar Dados JSON:</h4>
+            <div class="code">
+addDataFromJSON(0, '{"skills": ["Solidity", "React"], "salary": "5000"}')
+            </div>
+            
+            <h4>4. Ler Dados:</h4>
+            <div class="code">
+readData(0, "idade")
+            </div>
+            
+            <h4>5. Conceder Acesso:</h4>
+            <div class="code">
+grantReadAccess("0xEnderecoDoSistema", 0)
+grantWriteAccess("0xEnderecoDoSistema", 0)
+            </div>
+            
+            <h4>6. Verificar se Token Existe:</h4>
+            <div class="code">
+tokenExists(0)
+            </div>
+            
+            <h4>7. Obter Informações Completas:</h4>
+            <div class="code">
+getAllData(0)
+getNFTInfo(0)
+            </div>
+            
+            <h4>8. Transferir NFT:</h4>
+            <div class="code">
+transferNFT("0xNovoProprietario", 0)
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>🔍 Principais Correções Feitas</h3>
+            <p>O contrato principal foi corrigido com:</p>
+            <ul>
+                <li>✅ <strong>Adicionado:</strong> <code>mapping(uint256 => bool) private _tokenExists;</code></li>
+                <li>✅ <strong>Substituído:</strong> Todas as 15 ocorrências de <code>_exists(tokenId)</code> por <code>_tokenExists[tokenId]</code></li>
+                <li>✅ <strong>Atualizado:</strong> Função <code>createNFT</code> para marcar token como existente</li>
+                <li>✅ <strong>Adicionado:</strong> Função <code>tokenExists(uint256 tokenId)</code> para verificação</li>
+                <li>✅ <strong>Mantido:</strong> Todas as funcionalidades originais completas</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>📊 Funcionalidades Completas Disponíveis</h3>
+            <p>Este contrato principal inclui:</p>
+            
+            <h4>🎯 Gestão de NFTs:</h4>
+            <ul>
+                <li><code>createNFT()</code> - Criar NFT</li>
+                <li><code>transferNFT()</code> - Transferir NFT</li>
+                <li><code>getTotalNFTs()</code> - Total de NFTs</li>
+                <li><code>tokenExists()</code> - Verificar existência</li>
+            </ul>
+            
+            <h4>📝 Gestão de Dados:</h4>
+            <ul>
+                <li><code>addData()</code> - Adicionar dados chave-valor</li>
+                <li><code>addDataFromJSON()</code> - Adicionar dados JSON</li>
+                <li><code>readData()</code> - Ler dados</li>
+                <li><code>getAllData()</code> - Obter todos os dados</li>
+            </ul>
+            
+            <h4>🔐 Controle de Acesso:</h4>
+            <ul>
+                <li><code>grantReadAccess()</code> - Conceder acesso de leitura</li>
+                <li><code>grantWriteAccess()</code> - Conceder acesso de escrita</li>
+                <li><code>revokeReadAccess()</code> - Revogar acesso de leitura</li>
+                <li><code>revokeWriteAccess()</code> - Revogar acesso de escrita</li>
+                <li><code>requestReadAccess()</code> - Solicitar acesso de leitura</li>
+                <li><code>requestWriteAccess()</code> - Solicitar acesso de escrita</li>
+            </ul>
+            
+            <h4>📊 Consultas e Informações:</h4>
+            <ul>
+                <li><code>getNFTInfo()</code> - Informações da NFT</li>
+                <li><code>getCurrentOwner()</code> - Proprietário atual</li>
+                <li><code>getOwnershipHistory()</code> - Histórico de propriedade</li>
+                <li><code>getDataSharingCount()</code> - Contagem de compartilhamento</li>
+                <li><code>hasReadAccess()</code> - Verificar acesso de leitura</li>
+                <li><code>hasWriteAccess()</code> - Verificar acesso de escrita</li>
+                <li><code>hadOwnership()</code> - Verificar posse anterior</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>📊 Verificação de Funcionamento</h3>
+            <p>Após executar as funções:</p>
+            <ul>
+                <li>✅ Verifique se os eventos foram emitidos</li>
+                <li>✅ Confirme se os dados foram armazenados</li>
+                <li>✅ Teste o controle de acesso granular</li>
+                <li>✅ Verifique o histórico de propriedade</li>
+                <li>✅ Teste dados criptografados</li>
+                <li>✅ Use a função <code>tokenExists</code> para verificar</li>
+                <li>✅ Anote o endereço do contrato</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <strong>💡 Dica:</strong> Este é o contrato principal completo com todas as funcionalidades solicitadas. Use este contrato para ter acesso a todas as features implementadas!
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="https://remix.ethereum.org/" target="_blank" class="button">🚀 Abrir Remix IDE</a>
+        </div>
+    </div>
+</body>
+</html>
