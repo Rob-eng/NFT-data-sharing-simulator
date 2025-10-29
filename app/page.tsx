@@ -16,7 +16,7 @@ import { GenerateOwnerDialog } from "@/components/generate-owner-dialog"
 import { WelcomeDialog } from "@/components/welcome-dialog"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Plus, Hexagon, UserPlus } from "lucide-react"
+import { Plus, Hexagon, UserPlus, Database } from "lucide-react"
 import { generateWalletKeys } from "@/lib/encryption"
 import { translations } from "@/lib/translations"
 import type {
@@ -370,6 +370,15 @@ export default function Home() {
               >
                 <Hexagon className="h-5 w-5" />
                 {t.createNFT}
+              </Button>
+              <Button
+                onClick={() => window.open('/nft-data-sharing', '_blank')}
+                size="lg"
+                variant="outline"
+                className="gap-2"
+              >
+                <Database className="h-5 w-5" />
+                Ver Contrato Real
               </Button>
             </div>
 
